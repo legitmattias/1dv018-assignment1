@@ -1,0 +1,34 @@
+
+Programmeringsuppgift 1
+
+I programmeringsuppgift 1 skall ni implementera några enklare algoritmer och datastrukturer från de två första föreläsningarna.
+
+Viktig information:
+Alla problem skall lösas i Java eller Python.Observera även att det är tillåtet att använda Python eller något annat verktyg för att analysera resultaten, producera grafer, osv.
+Uppgifter
+Uppgift 1
+
+Implementera den första varianten av UnionFind (quick find).
+Uppgift 2
+
+Förbättra din UnionFind genom att implementera en av de snabbare varianterna: quick union, weighted eller path compression.
+Uppgift 3
+
+Testa dina implementationer av UnionFind med olika storlekar på vektorer/listor och antal unions och finds. Mät hur lång tid det tar. Använd dessa mätvärden för att empiriskt avgöra hur de växer. Stämmer dina resultat överens med vad du förväntade dig? Varför/varför inte?
+Uppgift 4
+
+Implementera “brute force”-varianten (𝑂(𝑁³)) av 3sum.
+Uppgift 5
+
+Förbättra din implementation av 3sum med någon av de tekniker som diskuterades i föreläsningen så att den får en lägre övergräns än 𝑂(𝑁³).
+Uppgift 6
+
+Testa nu dina implementationer av 3sum med olika storlekar på vektorer/listor och mät hur lång tid de tar. Använd dessa mätvärden för att empiriskt avgöra hur de växer. Stämmer dina resultat överens med vad du förväntade dig? Varför/varför inte?
+
+Instruktioner för inlämning av uppgift:
+
+    Packa ihop alla dina filer som behövdes för att utföra programmeringsuppgiften i en ZIP-fil och skicka in för rättning här på MyMoodle.
+    Detta är en individuell uppgift. Din lösning skall innehålla välstrukturerad programkod. Inkludera allt, inklusive eventuella Pythonprogram som du använt för dataanalys (dessa kommer endast att granskas om din analys inte verkar stämma).
+    Beskriv i README.md hur man kompilerar och kör dina program.
+    Du förväntas presentera hur din implementation växer. Det är bra men inte nödvändigt att inkludera grafer. Tänk på att tydligt ange dina resultat och slutsatser.
+
