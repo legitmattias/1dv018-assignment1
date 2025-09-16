@@ -16,11 +16,17 @@ assignment_1/
 │   └── threesum.py              # 3Sum implementations
 ├── notebooks/                    # Jupyter notebooks
 │   ├── algorithm_analysis.ipynb # Comprehensive performance analysis
-│   └── eploration/              # Testing and exploration
+│   └── exploration/             # Testing and exploration
 │       └── big_o_complexity.ipynb
+├── screenshots/                  # Performance analysis visualizations
+│   ├── output-graphs01.png      # Initial analysis results
+│   └── output-graphs02.png      # Updated analysis (workshop methodology)
+├── algorithm_analysis_notes.md   # Detailed analysis documentation
 ├── activate.sh                   # Environment activation script
+├── lint.sh                      # Code quality script
 ├── environment.yml              # Conda environment configuration
 ├── pyproject.toml               # Project configuration
+├── CLAUDE.md                    # Claude Code guidance
 └── README.md                    # This file
 ```
 
@@ -73,17 +79,21 @@ python src/threesum.py
 jupyter lab
 
 # Navigate to notebooks/algorithm_analysis.ipynb for comprehensive analysis
-# Use notebooks/eploration/big_o_complexity.ipynb for quick testing
+# Use notebooks/exploration/big_o_complexity.ipynb for quick testing
 ```
 
 ### Code Quality
 
 ```bash
-# Run linting
-ruff check src/
+# Run linting and formatting (recommended)
+./lint.sh
 
-# Format code
-black src/
+# Manual linting and formatting
+ruff check . --fix
+ruff format .
+
+# Type checking
+mypy src/
 ```
 
 ## Algorithm Implementations
@@ -103,18 +113,41 @@ black src/
 
 ## Performance Analysis
 
+### Comprehensive Analysis
+
 The `notebooks/algorithm_analysis.ipynb` contains comprehensive performance analysis including:
-- Empirical timing measurements
-- Complexity analysis
-- Performance comparisons
-- Theoretical vs empirical results
+- **%timeit precision measurements** for accurate timing
+- **Slope verification** to confirm theoretical complexity
+- **Scaled testing**: UnionFind (N=1K-100K), 3Sum (separate ranges for different algorithms)
+- **Visual comparisons** with both linear and log-log plots
+
+### Key Findings
+
+**UnionFind Results:**
+- Quick Find: Perfect O(N) scaling (slope = 1.00)
+- Quick Union: Catastrophic O(N²) degradation (slope = 2.07, 25+ seconds at N=100K)
+- Weighted algorithms: Excellent O(log N) performance maintaining sub-second execution
+
+**3Sum Results:**
+- Brute Force: Perfect O(N³) validation (slope = 3.13)
+- Two Pointers: Near-linear optimization (slope = 0.99)
+- Hash Set: Solid O(N²) behavior (slope = 2.35)
+
+### Documentation
+
+- **`algorithm_analysis_notes.md`**: Detailed function documentation and theoretical vs. empirical analysis
+- **`screenshots/`**: Performance visualization graphs showing scaling behavior
+- **Workshop methodology**: Updated approach based on academic feedback for clearer results
 
 ## Quick Test
 
 ```bash
 # Test that everything works
-conda activate assignment1
+./activate.sh
 python -c "import sys; sys.path.append('src'); from unionfind import QuickFind; from threesum import three_sum_brute_force; print('All algorithms work!')"
+
+# Run full performance analysis (takes several minutes due to large datasets)
+jupyter lab notebooks/algorithm_analysis.ipynb
 ```
 
 ## Troubleshooting
