@@ -4,16 +4,14 @@
 
 ### UnionFind Functions
 
-**`measure_unionfind_performance(uf_class, n, operations)`**
-- **Purpose**: Measures execution time of UnionFind union operations
+**`setup_unionfind_test(uf_class, n, operations)`**
+- **Purpose**: Creates a test function for UnionFind operations compatible with %timeit
 - **Steps**:
   1. Creates UnionFind instance
-  2. Records start time
-  3. Executes all union operations
-  4. Records end time
-  5. Returns elapsed time
+  2. Defines inner function that executes all union operations
+  3. Returns the test function for %timeit execution
 - **Input**: UnionFind class, number of elements, list of (p,q) operations
-- **Output**: Execution time in seconds
+- **Output**: Callable function for %timeit timing
 
 **`generate_unionfind_operations(n, num_operations)`**
 - **Purpose**: Generates random union operations for testing
@@ -26,15 +24,13 @@
 
 ### 3Sum Functions
 
-**`measure_threesum_performance(func, nums)`**
-- **Purpose**: Measures execution time of 3Sum algorithms
+**`setup_threesum_test(func, nums)`**
+- **Purpose**: Creates a test function for 3Sum algorithms compatible with %timeit
 - **Steps**:
-  1. Records start time
-  2. Executes 3Sum function
-  3. Records end time
-  4. Returns results and elapsed time
+  1. Defines inner function that executes the 3Sum algorithm
+  2. Returns the test function for %timeit execution
 - **Input**: 3Sum function, list of integers
-- **Output**: Tuple of (results, execution_time)
+- **Output**: Callable function for %timeit timing
 
 ## Algorithm Performance Analysis
 
