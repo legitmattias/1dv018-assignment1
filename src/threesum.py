@@ -55,6 +55,89 @@ def three_sum_brute_force(
         return result
 
 
+def _three_sum_values(nums: list[int], target: int) -> list[tuple[int, int, int]]:
+    """Helper function for value-based 3Sum using two pointers."""
+    n = len(nums)
+    sorted_nums = sorted(nums)
+    result = []
+
+    for i in range(n - 2):
+        if i > 0 and sorted_nums[i] == sorted_nums[i - 1]:
+            continue
+
+        left = i + 1
+        right = n - 1
+
+        while left < right:
+            current_sum = sorted_nums[i] + sorted_nums[left] + sorted_nums[right]
+
+            if current_sum == target:
+                result.append((sorted_nums[i], sorted_nums[left], sorted_nums[right]))
+
+                # Skip duplicates for second and third elements
+                while left < right and sorted_nums[left] == sorted_nums[left + 1]:
+                    left += 1
+                while left < right and sorted_nums[right] == sorted_nums[right - 1]:
+                    right -= 1
+
+                left += 1
+                right -= 1
+            elif current_sum < target:
+                left += 1
+            else:
+                right -= 1
+
+    return result
+
+
+def _three_sum_indices(nums: list[int], target: int) -> list[tuple[int, int, int]]:
+    """Helper function for index-based 3Sum using two pointers."""
+    n = len(nums)
+    indexed_nums = [(nums[i], i) for i in range(n)]
+    indexed_nums.sort(key=lambda x: x[0])
+    result = []
+
+    for i in range(n - 2):
+        if i > 0 and indexed_nums[i][0] == indexed_nums[i - 1][0]:
+            continue
+
+        left = i + 1
+        right = n - 1
+
+        while left < right:
+            current_sum = (
+                indexed_nums[i][0] + indexed_nums[left][0] + indexed_nums[right][0]
+            )
+
+            if current_sum == target:
+                original_indices = (
+                    indexed_nums[i][1],
+                    indexed_nums[left][1],
+                    indexed_nums[right][1],
+                )
+                result.append(original_indices)
+
+                # Skip duplicates for second and third elements
+                while (
+                    left < right and indexed_nums[left][0] == indexed_nums[left + 1][0]
+                ):
+                    left += 1
+                while (
+                    left < right
+                    and indexed_nums[right][0] == indexed_nums[right - 1][0]
+                ):
+                    right -= 1
+
+                left += 1
+                right -= 1
+            elif current_sum < target:
+                left += 1
+            else:
+                right -= 1
+
+    return result
+
+
 def three_sum_optimized(
     nums: list[int], target: int = 0, return_values: bool = False
 ) -> list[tuple[int, int, int]]:
@@ -73,95 +156,10 @@ def three_sum_optimized(
         List of tuples (i, j, k) where nums[i] + nums[j] + nums[k] = target
         or value triplets if return_values=True
     """
-    n = len(nums)
-
     if return_values:
-        # For value-based results, work directly with sorted values
-        sorted_nums = sorted(nums)
-        result = []
-
-        for i in range(n - 2):
-            # Skip duplicates for first element
-            if i > 0 and sorted_nums[i] == sorted_nums[i - 1]:
-                continue
-
-            left = i + 1
-            right = n - 1
-
-            while left < right:
-                current_sum = sorted_nums[i] + sorted_nums[left] + sorted_nums[right]
-
-                if current_sum == target:
-                    result.append(
-                        (sorted_nums[i], sorted_nums[left], sorted_nums[right])
-                    )
-
-                    # Skip duplicates for second element
-                    while left < right and sorted_nums[left] == sorted_nums[left + 1]:
-                        left += 1
-                    # Skip duplicates for third element
-                    while left < right and sorted_nums[right] == sorted_nums[right - 1]:
-                        right -= 1
-
-                    left += 1
-                    right -= 1
-                elif current_sum < target:
-                    left += 1
-                else:
-                    right -= 1
-
-        return result
+        return _three_sum_values(nums, target)
     else:
-        # For index-based results, maintain original indices
-        result = []
-
-        # Create list of (value, original_index) pairs and sort by value
-        indexed_nums = [(nums[i], i) for i in range(n)]
-        indexed_nums.sort(key=lambda x: x[0])
-
-        for i in range(n - 2):
-            # Skip duplicates for first element
-            if i > 0 and indexed_nums[i][0] == indexed_nums[i - 1][0]:
-                continue
-
-            left = i + 1
-            right = n - 1
-
-            while left < right:
-                current_sum = (
-                    indexed_nums[i][0] + indexed_nums[left][0] + indexed_nums[right][0]
-                )
-
-                if current_sum == target:
-                    # Found a triplet
-                    original_indices = (
-                        indexed_nums[i][1],
-                        indexed_nums[left][1],
-                        indexed_nums[right][1],
-                    )
-                    result.append(original_indices)
-
-                    # Skip duplicates for second element
-                    while (
-                        left < right
-                        and indexed_nums[left][0] == indexed_nums[left + 1][0]
-                    ):
-                        left += 1
-                    # Skip duplicates for third element
-                    while (
-                        left < right
-                        and indexed_nums[right][0] == indexed_nums[right - 1][0]
-                    ):
-                        right -= 1
-
-                    left += 1
-                    right -= 1
-                elif current_sum < target:
-                    left += 1
-                else:
-                    right -= 1
-
-        return result
+        return _three_sum_indices(nums, target)
 
 
 def three_sum_optimized_with_hash(
