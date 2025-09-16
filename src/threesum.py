@@ -11,7 +11,7 @@ import time
 
 
 def three_sum_brute_force(
-    nums: list[int], target: int = 0
+    nums: list[int], target: int = 0, return_values: bool = False
 ) -> list[tuple[int, int, int]]:
     """
     Brute force implementation of 3Sum problem.
@@ -22,23 +22,42 @@ def three_sum_brute_force(
     Args:
         nums: List of integers
         target: Target sum (default: 0)
+        return_values: If True, return unique value triplets; if False, return index
 
     Returns:
         List of tuples (i, j, k) where nums[i] + nums[j] + nums[k] = target
+        or value triplets if return_values=True
     """
     n = len(nums)
-    result = []
 
-    for i in range(n):
-        for j in range(i + 1, n):
-            for k in range(j + 1, n):
-                if nums[i] + nums[j] + nums[k] == target:
-                    result.append((i, j, k))
+    if return_values:
+        # For value-based deduplication, use a set to track unique triplets
+        result_set = set()
 
-    return result
+        for i in range(n):
+            for j in range(i + 1, n):
+                for k in range(j + 1, n):
+                    if nums[i] + nums[j] + nums[k] == target:
+                        # Create sorted triplet of values for deduplication
+                        triplet = tuple(sorted([nums[i], nums[j], nums[k]]))
+                        result_set.add(triplet)
+
+        return list(result_set)
+    else:
+        result = []
+
+        for i in range(n):
+            for j in range(i + 1, n):
+                for k in range(j + 1, n):
+                    if nums[i] + nums[j] + nums[k] == target:
+                        result.append((i, j, k))
+
+        return result
 
 
-def three_sum_optimized(nums: list[int], target: int = 0) -> list[tuple[int, int, int]]:
+def three_sum_optimized(
+    nums: list[int], target: int = 0, return_values: bool = False
+) -> list[tuple[int, int, int]]:
     """
     Optimized implementation of 3Sum problem using sorting and two pointers.
 
@@ -48,63 +67,105 @@ def three_sum_optimized(nums: list[int], target: int = 0) -> list[tuple[int, int
     Args:
         nums: List of integers
         target: Target sum (default: 0)
+        return_values: If True, return unique value triplets; if False, return index
 
     Returns:
         List of tuples (i, j, k) where nums[i] + nums[j] + nums[k] = target
+        or value triplets if return_values=True
     """
     n = len(nums)
-    result = []
 
-    # Create list of (value, original_index) pairs and sort by value
-    indexed_nums = [(nums[i], i) for i in range(n)]
-    indexed_nums.sort(key=lambda x: x[0])
+    if return_values:
+        # For value-based results, work directly with sorted values
+        sorted_nums = sorted(nums)
+        result = []
 
-    for i in range(n - 2):
-        # Skip duplicates for first element
-        if i > 0 and indexed_nums[i][0] == indexed_nums[i - 1][0]:
-            continue
+        for i in range(n - 2):
+            # Skip duplicates for first element
+            if i > 0 and sorted_nums[i] == sorted_nums[i - 1]:
+                continue
 
-        left = i + 1
-        right = n - 1
+            left = i + 1
+            right = n - 1
 
-        while left < right:
-            current_sum = (
-                indexed_nums[i][0] + indexed_nums[left][0] + indexed_nums[right][0]
-            )
+            while left < right:
+                current_sum = sorted_nums[i] + sorted_nums[left] + sorted_nums[right]
 
-            if current_sum == target:
-                # Found a triplet
-                original_indices = (
-                    indexed_nums[i][1],
-                    indexed_nums[left][1],
-                    indexed_nums[right][1],
-                )
-                result.append(original_indices)
+                if current_sum == target:
+                    result.append(
+                        (sorted_nums[i], sorted_nums[left], sorted_nums[right])
+                    )
 
-                # Skip duplicates for second element
-                while (
-                    left < right and indexed_nums[left][0] == indexed_nums[left + 1][0]
-                ):
+                    # Skip duplicates for second element
+                    while left < right and sorted_nums[left] == sorted_nums[left + 1]:
+                        left += 1
+                    # Skip duplicates for third element
+                    while left < right and sorted_nums[right] == sorted_nums[right - 1]:
+                        right -= 1
+
                     left += 1
-                # Skip duplicates for third element
-                while (
-                    left < right
-                    and indexed_nums[right][0] == indexed_nums[right - 1][0]
-                ):
+                    right -= 1
+                elif current_sum < target:
+                    left += 1
+                else:
                     right -= 1
 
-                left += 1
-                right -= 1
-            elif current_sum < target:
-                left += 1
-            else:
-                right -= 1
+        return result
+    else:
+        # For index-based results, maintain original indices
+        result = []
 
-    return result
+        # Create list of (value, original_index) pairs and sort by value
+        indexed_nums = [(nums[i], i) for i in range(n)]
+        indexed_nums.sort(key=lambda x: x[0])
+
+        for i in range(n - 2):
+            # Skip duplicates for first element
+            if i > 0 and indexed_nums[i][0] == indexed_nums[i - 1][0]:
+                continue
+
+            left = i + 1
+            right = n - 1
+
+            while left < right:
+                current_sum = (
+                    indexed_nums[i][0] + indexed_nums[left][0] + indexed_nums[right][0]
+                )
+
+                if current_sum == target:
+                    # Found a triplet
+                    original_indices = (
+                        indexed_nums[i][1],
+                        indexed_nums[left][1],
+                        indexed_nums[right][1],
+                    )
+                    result.append(original_indices)
+
+                    # Skip duplicates for second element
+                    while (
+                        left < right
+                        and indexed_nums[left][0] == indexed_nums[left + 1][0]
+                    ):
+                        left += 1
+                    # Skip duplicates for third element
+                    while (
+                        left < right
+                        and indexed_nums[right][0] == indexed_nums[right - 1][0]
+                    ):
+                        right -= 1
+
+                    left += 1
+                    right -= 1
+                elif current_sum < target:
+                    left += 1
+                else:
+                    right -= 1
+
+        return result
 
 
 def three_sum_optimized_with_hash(
-    nums: list[int], target: int = 0
+    nums: list[int], target: int = 0, return_values: bool = False
 ) -> list[tuple[int, int, int]]:
     """
     Alternative optimized implementation using hash set for the third element.
@@ -115,40 +176,54 @@ def three_sum_optimized_with_hash(
     Args:
         nums: List of integers
         target: Target sum (default: 0)
+        return_values: If True, return unique value triplets; if False, return index
 
     Returns:
         List of tuples (i, j, k) where nums[i] + nums[j] + nums[k] = target
+        or value triplets if return_values=True
     """
     n = len(nums)
-    result = []
 
-    for i in range(n - 2):
-        # Skip duplicates for first element
-        if i > 0 and nums[i] == nums[i - 1]:
-            continue
+    if return_values:
+        # For value-based deduplication, use a set to track unique triplets
+        result_set = set()
 
-        seen = {}
-        for j in range(i + 1, n):
-            # Skip duplicates for second element
-            if j > i + 1 and nums[j] == nums[j - 1]:
-                continue
+        for i in range(n - 2):
+            seen = set()
+            for j in range(i + 1, n):
+                complement = target - nums[i] - nums[j]
+                if complement in seen:
+                    # Create sorted triplet of values for deduplication
+                    triplet = tuple(sorted([nums[i], nums[j], complement]))
+                    result_set.add(triplet)
+                seen.add(nums[j])
 
-            complement = target - nums[i] - nums[j]
-            if complement in seen:
-                # Get all indices where complement appears
-                for k in seen[complement]:
-                    if k > i:  # Ensure k is after i
+        return list(result_set)
+    else:
+        # For index-based results with value deduplication
+        seen_triplets = set()
+        result = []
+
+        for i in range(n - 2):
+            seen = {}
+            for j in range(i + 1, n):
+                complement = target - nums[i] - nums[j]
+                if complement in seen:
+                    k = seen[complement]
+                    # Create sorted triplet of values for deduplication check
+                    value_triplet = tuple(sorted([nums[i], nums[j], nums[k]]))
+                    if value_triplet not in seen_triplets:
+                        seen_triplets.add(value_triplet)
                         result.append((i, k, j))
-            else:
-                # Add current number to seen with its index
+
+                # Only store the first occurrence of each value
                 if nums[j] not in seen:
-                    seen[nums[j]] = []
-                seen[nums[j]].append(j)
+                    seen[nums[j]] = j
 
-    return result
+        return result
 
 
-def generate_test_data(n: int, min_val: int = -100, max_val: int = 100) -> list[int]:
+def generate_test_data(n: int, min_val: int = -1000, max_val: int = 1000) -> list[int]:
     """
     Generate random test data for 3Sum algorithms.
 
