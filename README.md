@@ -16,17 +16,19 @@ assignment_1/
 │   └── threesum.py              # 3Sum implementations
 ├── notebooks/                    # Jupyter notebooks
 │   ├── algorithm_analysis.ipynb # Comprehensive performance analysis
-│   └── exploration/             # Testing and exploration
+│   └── exploration/             # Personal testing (not part of assignment)
 │       └── big_o_complexity.ipynb
 ├── screenshots/                  # Performance analysis visualizations
 │   ├── output-graphs01.png      # Initial analysis results
-│   └── output-graphs02.png      # Updated analysis (workshop methodology)
-├── algorithm_analysis_notes.md   # Detailed analysis documentation
+│   ├── output-graphs02.png      # Updated analysis (workshop methodology)
+│   ├── output-graphs03.png      # Extended analysis results
+│   └── output-graphs04_curve-fit.png # Curve-fit analysis visualization
+├── algorithm_analysis_notes.md   # Analysis findings and insights
+├── code_implementation_guide.md  # Implementation documentation
 ├── activate.sh                   # Environment activation script
 ├── lint.sh                      # Code quality script
 ├── environment.yml              # Conda environment configuration
 ├── pyproject.toml               # Project configuration
-├── CLAUDE.md                    # Claude Code guidance
 └── README.md                    # This file
 ```
 
@@ -79,7 +81,6 @@ python src/threesum.py
 jupyter lab
 
 # Navigate to notebooks/algorithm_analysis.ipynb for comprehensive analysis
-# Use notebooks/exploration/big_o_complexity.ipynb for quick testing
 ```
 
 ### Code Quality
@@ -135,9 +136,9 @@ The `notebooks/algorithm_analysis.ipynb` contains comprehensive performance anal
 
 ### Documentation
 
-- **`algorithm_analysis_notes.md`**: Detailed function documentation and theoretical vs. empirical analysis
-- **`screenshots/`**: Performance visualization graphs showing scaling behavior
-- **Workshop methodology**: Updated approach based on academic feedback for clearer results
+- **`algorithm_analysis_notes.md`**: Analysis findings and empirical observations
+- **`code_implementation_guide.md`**: Detailed implementation documentation and notebook structure
+- **`screenshots/`**: Performance visualization graphs showing scaling behavior and curve-fit analysis
 
 ## Quick Test
 
