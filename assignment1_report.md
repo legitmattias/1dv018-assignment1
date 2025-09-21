@@ -6,6 +6,8 @@ För den här uppgiften har jag valt att dela upp implementation och analys i se
 
 Notebooken innehåller både mätmetodik (via `%timeit` och closures), datainsamling till tabeller och DataFrames samt visualiseringar i form av grafer. På så sätt kan jag tydligt visa hur komplexiteten utvecklas för de olika varianterna när inputstorleken växer.
 
+Utöver detta har jag lagt till separata testmöjligheter för algoritmimplementationerna, så att jag kunde köra enkla “smoke tests” under utvecklingen. Det gjorde det lättare att snabbt verifiera att varje variant fungerade korrekt innan jag gick vidare med mätningar och analyser.
+
 För en mer detaljerad beskrivning av projektets kodstruktur och funktionernas uppbyggnad hänvisar jag till dokumentet [code\_implementation\_guide.md](code_implementation_guide.md) i projektets rotkatalog. Det är ett genererat dokument på engelska som beskriver implementationerna mer utförligt.
 
 > För vägledning kring hur man sätter upp miljön och kör algoritmerna och testerna hänvisar jag till [README](README.md).
