@@ -1,5 +1,7 @@
 # Assignment 1 - Algorithms and Data Structures
 
+> NOTE: The assignment report is named `assignment1_report.md` and is located in project root.
+
 ## Project Overview
 
 This assignment implements and analyzes various algorithms and data structures:
