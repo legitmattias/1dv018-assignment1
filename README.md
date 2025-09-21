@@ -16,19 +16,23 @@ assignment_1/
 │   └── threesum.py              # 3Sum implementations
 ├── notebooks/                    # Jupyter notebooks
 │   ├── algorithm_analysis.ipynb # Comprehensive performance analysis
+│   ├── reports/                 # Exported notebook runs
 │   └── exploration/             # Personal testing (not part of assignment)
 │       └── big_o_complexity.ipynb
 ├── screenshots/                  # Performance analysis visualizations
 │   ├── output-graphs01.png      # Initial analysis results
 │   ├── output-graphs02.png      # Updated analysis (workshop methodology)
 │   ├── output-graphs03.png      # Extended analysis results
-│   └── output-graphs04_curve-fit.png # Curve-fit analysis visualization
-├── algorithm_analysis_notes.md   # Analysis findings and insights
+│   ├── output-graphs04_curve-fit.png # Curve-fit analysis visualization
+│   ├── 3sum.png                 # 3Sum algorithm performance
+│   └── unionfind.png            # UnionFind algorithm performance
+├── assignment1_report.md         # Assignment report
 ├── code_implementation_guide.md  # Implementation documentation
 ├── activate.sh                   # Environment activation script
 ├── lint.sh                      # Code quality script
 ├── environment.yml              # Conda environment configuration
 ├── pyproject.toml               # Project configuration
+├── requirements.txt             # Python package requirements
 └── README.md                    # This file
 ```
 
@@ -68,10 +72,10 @@ direnv allow
 
 ```bash
 # Test UnionFind implementations
-python src/unionfind.py
+python3 src/unionfind.py
 
 # Test 3Sum implementations
-python src/threesum.py
+python3 src/threesum.py
 ```
 
 ### Running Analysis Notebooks
@@ -136,8 +140,9 @@ The `notebooks/algorithm_analysis.ipynb` contains comprehensive performance anal
 
 ### Documentation
 
-- **`algorithm_analysis_notes.md`**: Analysis findings and empirical observations
+- **`assignment1_report.md`**: Complete assignment report with analysis and findings
 - **`code_implementation_guide.md`**: Detailed implementation documentation and notebook structure
+- **`notebooks/reports/`**: Exported HTML reports from notebook runs
 - **`screenshots/`**: Performance visualization graphs showing scaling behavior and curve-fit analysis
 
 ## Quick Test
@@ -145,7 +150,7 @@ The `notebooks/algorithm_analysis.ipynb` contains comprehensive performance anal
 ```bash
 # Test that everything works
 ./activate.sh
-python -c "import sys; sys.path.append('src'); from unionfind import QuickFind; from threesum import three_sum_brute_force; print('All algorithms work!')"
+python3 -c "import sys; sys.path.append('src'); from unionfind import QuickFind; from threesum import three_sum_brute_force; print('All algorithms work!')"
 
 # Run full performance analysis (takes several minutes due to large datasets)
 jupyter lab notebooks/algorithm_analysis.ipynb
