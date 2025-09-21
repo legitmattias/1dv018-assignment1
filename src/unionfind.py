@@ -3,7 +3,7 @@ UnionFind implementations for Assignment 1.
 
 This module contains different implementations of the UnionFind data structure:
 1. Quick Find - O(N) union, O(1) find
-2. Quick Union - O(N) union, O(1) find (worst case)
+2. Quick Union - O(N) union, O(N) find (worst case)
 3. Weighted Quick Union - O(log N) union, O(log N) find
 4. Weighted Quick Union with Path Compression - O(α(N)) union, O(α(N)) find
 """
@@ -26,7 +26,7 @@ class QuickFind:
         Args:
             n: Number of elements (0 to n-1)
         """
-        self.id = list(range(n))
+        self.id = list(range(n))  # id[i] = component ID of element i
         self.count = n  # Number of components
 
     def find(self, p: int) -> int:
@@ -103,7 +103,7 @@ class QuickUnion:
         Args:
             n: Number of elements (0 to n-1)
         """
-        self.id = list(range(n))
+        self.id = list(range(n))  # id[i] = parent of element i
         self.count = n  # Number of components
 
     def find(self, p: int) -> int:
@@ -179,7 +179,7 @@ class WeightedQuickUnion:
         Args:
             n: Number of elements (0 to n-1)
         """
-        self.id = list(range(n))
+        self.id = list(range(n))  # id[i] = parent of element i
         self.size = [1] * n  # Size of each component
         self.count = n  # Number of components
 
@@ -262,7 +262,7 @@ class WeightedQuickUnionPathCompression:
         Args:
             n: Number of elements (0 to n-1)
         """
-        self.id = list(range(n))
+        self.id = list(range(n))  # id[i] = parent of element i
         self.size = [1] * n  # Size of each component
         self.count = n  # Number of components
 

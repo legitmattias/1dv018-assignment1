@@ -22,11 +22,16 @@ def three_sum_brute_force(
     Args:
         nums: List of integers
         target: Target sum (default: 0)
-        return_values: If True, return unique value triplets; if False, return index
+        return_values: If True, return unique value triplets; if False, return
+            index triplets
 
     Returns:
-        List of tuples (i, j, k) where nums[i] + nums[j] + nums[k] = target
-        or value triplets if return_values=True
+        List of index triplets (i, j, k) from the original array where
+            nums[i] + nums[j] + nums[k] = target
+        or value triplets (v1, v2, v3) if return_values=True.
+        Note: Index mode avoids duplicate permutations (i<j<k), but does not
+        perform value-level deduplication. Value mode ensures unique triplets
+        by values.
     """
     n = len(nums)
 
@@ -145,16 +150,20 @@ def three_sum_optimized(
     Optimized implementation of 3Sum problem using sorting and two pointers.
 
     Time Complexity: O(N^2)
-    Space Complexity: O(1) excluding output
+    Space Complexity: O(N) (excluding output)
 
     Args:
         nums: List of integers
         target: Target sum (default: 0)
-        return_values: If True, return unique value triplets; if False, return index
+        return_values: If True, return unique value triplets; if False, return
+            index triplets
 
     Returns:
-        List of tuples (i, j, k) where nums[i] + nums[j] + nums[k] = target
-        or value triplets if return_values=True
+        List of index triplets (i, j, k) from the original array where
+            nums[i] + nums[j] + nums[k] = target
+        or value triplets (v1, v2, v3) if return_values=True.
+        Note: Index mode deduplicates by values, so different index
+            permutations of same values aren't repeated.
     """
     if return_values:
         return _three_sum_values(nums, target)
@@ -174,11 +183,15 @@ def three_sum_optimized_with_hash(
     Args:
         nums: List of integers
         target: Target sum (default: 0)
-        return_values: If True, return unique value triplets; if False, return index
+        return_values: If True, return unique value triplets; if False, return
+            index triplets
 
     Returns:
-        List of tuples (i, j, k) where nums[i] + nums[j] + nums[k] = target
-        or value triplets if return_values=True
+        List of index triplets (i, j, k) from the original array where
+            nums[i] + nums[j] + nums[k] = target
+        or value triplets (v1, v2, v3) if return_values=True.
+        Note: Index mode deduplicates by values, so different index
+            permutations of same values aren't repeated.
     """
     n = len(nums)
 
@@ -248,9 +261,9 @@ def measure_time(func, *args, **kwargs):
     Returns:
         Tuple of (result, execution_time_in_seconds)
     """
-    start_time = time.time()
+    start_time = time.perf_counter()
     result = func(*args, **kwargs)
-    end_time = time.time()
+    end_time = time.perf_counter()
     return result, end_time - start_time
 
 
