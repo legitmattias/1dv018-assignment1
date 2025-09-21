@@ -24,7 +24,7 @@ Quick Find används sannolikt som startpunkt för att den är enkel att förstå
 * `union(p, q)` är kostsam: man måste gå igenom hela arrayen och uppdatera alla positioner som har samma komponent-id som `p` → O(N).
 
 **Visualisering**
-Se fullständiga mätvärden, beräkningar och subplots för respektive variant i [notebooks/reports/algorithm_analysis_2025-09-18_14_59.html](notebooks/reports/algorithm_analysis_2025-09-18_14_59.html).
+Se fullständiga mätvärden, beräkningar och subplots för respektive variant i [notebooks/reports/algorithm_analysis_2025-09-21_21_59.html](notebooks/reports/algorithm_analysis_2025-09-21_21_59.html).
 
 ## Uppgift 2: Förbättra Union-Find (Quick Union, Weighted, Path Compression)
 
@@ -37,7 +37,7 @@ Enligt uppgiften räckte det att implementera *en* snabbare variant, men jag val
 * Weighted Quick Union med Path Compression: Här gör jag dessutom så att när `connected` körs pekar alla traverserade noder om direkt mot roten. Träden blir då nästan platta över tid. Det betyder att både `union` och `connected` i praktiken tar konstant tid, även för stora N.
 
 **Visualisering**
-Se fullständiga mätvärden, beräkningar och subplots för respektive variant i [notebooks/reports/algorithm_analysis_2025-09-18_14_59.html](notebooks/reports/algorithm_analysis_2025-09-18_14_59.html).
+Se fullständiga mätvärden, beräkningar och subplots för respektive variant i [notebooks/reports/algorithm_analysis_2025-09-21_21_59.html](notebooks/reports/algorithm_analysis_2025-09-21_21_59.html).
 
 Se grafisk representation under Uppgift 3 nedan.
 
@@ -66,7 +66,7 @@ Tabellen nedan visar empiriska lutningar från log-log-analysen, tillsammans med
 Resultaten stämmer nära det jag förväntade. Quick Union växer mycket snabbare än de andra när N blir stort eftersom träden kan bli djupa. Weighted och Path Compression håller träden grunda och kurvor som nästan inte stiger alls i log-log-diagrammen. Det intressanta är att redan vid relativt små N som 50 000–100 000 syns att Path Compression i praktiken beter sig som konstant tid. Det visar att förbättringarna fungerar mycket bra i Python även för måttliga teststorlekar.
 
 **Visualisering**
-Se fullständiga mätvärden, beräkningar och subplots för respektive variant i [notebooks/reports/algorithm_analysis_2025-09-18_14_59.html](notebooks/reports/algorithm_analysis_2025-09-18_14_59.html).
+Se fullständiga mätvärden, beräkningar och subplots för respektive variant i [notebooks/reports/algorithm_analysis_2025-09-21_21_59.html](notebooks/reports/algorithm_analysis_2025-09-21_21_59.html).
 
 ![Union-Find Union and Connected Results](./screenshots/unionfind.png)
 
@@ -79,7 +79,7 @@ Jag implementerade en brute force-lösning som testar alla tripplar av element. 
 Vid mätningar på N=80–400 syns tydlig kubisk tillväxt. Log-log-analysen ger lutning ≈ 3,10, vilket matchar den teoretiska O(N³).
 
 **Visualisering**
-Se fullständiga mätvärden, beräkningar och subplots för respektive variant i [notebooks/reports/algorithm_analysis_2025-09-18_14_59.html](notebooks/reports/algorithm_analysis_2025-09-18_14_59.html).
+Se fullständiga mätvärden, beräkningar och subplots för respektive variant i [notebooks/reports/algorithm_analysis_2025-09-21_21_59.html](notebooks/reports/algorithm_analysis_2025-09-21_21_59.html).
 
 Se grafisk representation under Uppgift 6 nedan.
 
@@ -96,7 +96,7 @@ Jag implementerade två varianter som diskuterades på föreläsningarna:
 Båda metoderna visar kvadratisk tillväxt istället för kubisk, vilket gör att de klarar mycket större inputstorlekar. Two Pointers är generellt snabbast i mina mätningar, medan Hash Set ligger nära den teoretiska kvadratiska kostnaden men med högre konstanter.
 
 **Visualisering.**
-Se fullständiga mätvärden, beräkningar och subplots för respektive variant i [notebooks/reports/algorithm_analysis_2025-09-18_14_59.html](notebooks/reports/algorithm_analysis_2025-09-18_14_59.html).
+Se fullständiga mätvärden, beräkningar och subplots för respektive variant i [notebooks/reports/algorithm_analysis_2025-09-21_21_59.html](notebooks/reports/algorithm_analysis_2025-09-21_21_59.html).
 
 Se grafisk representation under Uppgift 6 nedan.
 
@@ -108,7 +108,7 @@ Brute Force testades på N = 80–400, medan Two Pointers och Hash Set kördes p
 * `MIN_FITTING_POINTS = 2` → minsta antal punkter för att en anpassning ska göras.
 * `MIN_LARGE_POINTS = 3` → minsta antal punkter för att försöka en separat anpassning på de större N-värdena.
 
-Jag använder kurvanpassning endast för 3Sum. Union-Find har redan välkända analytiska komplexiteter som syns direkt i graferna, medan 3Sum är mer känslig för konstanta faktorer och preprocessning (t.ex. sortering). Därför tänker jag att exponentanpassning är användbar just här.
+Jag använder kurvanpassning endast för 3Sum. Union-Find har redan välkända analytiska komplexiteter som syns direkt i graferna, medan 3Sum är mer känslig för konstanta faktorer och preprocessning (t.ex. sortering). Därför tänker jag att exponentanpassning är mer användbar just här.
 
 **Resultat**
 * Brute Force: Lutning ≈ 3,10 → tydligt kubisk tillväxt.
@@ -135,7 +135,7 @@ Two Pointers följer i grunden O(N²), men mätningarna visar att verklig presta
 Den här specialhanteringen behövs bara för Two Pointers, eftersom Brute Force konsekvent är kubisk och Hash Set konsekvent är kvadratisk.
 
 **Visualisering**
-Se fullständiga mätvärden, beräkningar och subplots för respektive variant i [notebooks/reports/algorithm_analysis_2025-09-18_14_59.html](notebooks/reports/algorithm_analysis_2025-09-18_14_59.html).
+Se fullständiga mätvärden, beräkningar och subplots för respektive variant i [notebooks/reports/algorithm_analysis_2025-09-21_21_59.html](notebooks/reports/algorithm_analysis_2025-09-21_21_59.html).
 
 ![3Sum Results with Curve-Fit](./screenshots/3sum.png)
 
